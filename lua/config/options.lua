@@ -3,3 +3,19 @@
 -- Add any additional options here
 
 vim.opt.clipboard = ""
+
+-- reload files automatically when changed externally (when git branch changes for example)
+-- https://stackoverflow.com/questions/62100785/auto-reload-file-and-in-neovim-and-auto-reload-nerbtree
+-- doesn't work rn
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})
+
+vim.filetype.add({
+  pattern = {
+    [".*%.ansible%.yaml"] = "ansible",
+    [".*%.ansible%.yml"] = "ansible",
+  },
+})
