@@ -13,9 +13,18 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
   pattern = { "*" },
 })
 
+-- add ansbile filetype
 vim.filetype.add({
   pattern = {
     [".*%.ansible%.yaml"] = "ansible",
     [".*%.ansible%.yml"] = "ansible",
   },
+})
+
+-- add yaml filetype whenver a filetype of ansible is opened
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "ansible",
+  callback = function()
+    vim.bo.filetype = "yaml"
+  end,
 })
